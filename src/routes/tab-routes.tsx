@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import DetailsScreen from '../screens/details-screen/details-screen';
 import ProfileScreen from '../screens/profile-screen';
+import QuizQuestionScreen from '../screens/quiz-question-screen';
 import QuizApp from '../screens/quiz-app/quiz-app';
 import SettingsScreen from '../screens/settings-screen';
 import {useAppTheme} from '../theme/ThemeProvider';
@@ -16,6 +17,7 @@ function HomeStackRouter() {
     <HomeStack.Navigator screenOptions={{headerShown: false}}>
       <HomeStack.Screen name="QuizApp" component={QuizApp} />
       <HomeStack.Screen name="DetailsScreen" component={DetailsScreen} />
+      <HomeStack.Screen name="QuizQuestionScreen" component={QuizQuestionScreen} />
     </HomeStack.Navigator>
   );
 }

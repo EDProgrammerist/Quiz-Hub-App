@@ -1,46 +1,66 @@
-import { View, Text, Image, FlatList } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { FC } from 'react'
 import styles from './style'
 import Header from './header/header'
 import Icons from '@expo/vector-icons/Ionicons'
 import Animated, { SlideInLeft } from 'react-native-reanimated'
 import {useAppTheme} from '../../theme/ThemeProvider'
+import {getQuestionsForCategory, QuizQuestion} from '../../data/questions'
+import {useNavigation} from '@react-navigation/native'
 
 const DetailsScreen: FC<any> = (props) => {
-    const item = props.route.params.item
+    const item = props.route.params?.item
     const {colors} = useAppTheme()
-    const data = [
-        { questionNumber: 1 },
-        { questionNumber: 2 },
-        { questionNumber: 3 },
-        { questionNumber: 4 },
-        { questionNumber: 5 },
-        { questionNumber: 6 },
-        { questionNumber: 7 },
-        { questionNumber: 8 },
-        { questionNumber: 9 },
-        { questionNumber: 10 }
-    ]
+    const navigation: any = useNavigation()
+    const questions = getQuestionsForCategory(item?.id)
 
-    const renderItem = ({ item, index }: any) => {
+    const renderItem = ({ item: question, index }: {item: QuizQuestion; index: number}) => {
         return (
+            <TouchableOpacity
+                activeOpacity={0.85}
+                onPress={() =>
+                    navigation.navigate('QuizQuestionScreen', {
+                        item,
+                        initialQuestionIndex: index,
+                    })
+                }>
             <Animated.View style={styles.renderItem} entering={SlideInLeft.delay(100*index)}>
                 <View
                     style={[
                         styles.box,
                         {backgroundColor: colors.surface, shadowColor: colors.shadow},
                     ]}>
-                    <Text style={[styles.title, {color: colors.text}]}>Question 1</Text>
+                    <View style={styles.questionTextBox}>
+                        <Text style={[styles.questionNumber, {color: colors.primary}]}>
+                            Question {index + 1}
+                        </Text>
+                        <Text
+                            style={[styles.title, {color: colors.text}]}
+                            numberOfLines={2}>
+                            {question.question}
+                        </Text>
+                    </View>
                     <Icons name={"chevron-forward-outline"} size={20} color={colors.text} />
                 </View>
             </Animated.View>
+            </TouchableOpacity>
         )
     }
     return (
         <View style={[styles.container, {backgroundColor: colors.background}]}>
             <Header item={item} />
-            <FlatList data={data}
-                renderItem={renderItem} />
+            <FlatList
+                data={questions}
+                keyExtractor={question => question.id}
+                renderItem={renderItem}
+                ListEmptyComponent={() => (
+                    <View style={styles.emptyState}>
+                        <Text style={[styles.emptyText, {color: colors.mutedText}]}>
+                            No questions available yet.
+                        </Text>
+                    </View>
+                )}
+            />
         </View>
     )
 }

@@ -7,13 +7,13 @@ const styles = StyleSheet.create({
     },
     renderItem:{
         width:"100%",
-        height:100,
+        minHeight:104,
         alignItems:"center",
         justifyContent:"center"
     },
     box:{
         width:"90%",
-        height:"80%",
+        minHeight:84,
         backgroundColor:"#fff",
         borderRadius:10,
         shadowColor: "#FBCEB1",
@@ -27,12 +27,31 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         alignItems:"center",
         justifyContent:"space-between",
-        paddingHorizontal:"8%"
+        paddingHorizontal:"8%",
+        paddingVertical:14
+    },
+    questionTextBox:{
+        flex:1,
+        paddingRight:12
+    },
+    questionNumber:{
+        fontSize:12,
+        fontWeight:"800",
+        marginBottom:6
     },
     title:{
         fontSize:14,
         fontWeight:"600",
         color:"black"
+    },
+    emptyState:{
+        minHeight:220,
+        alignItems:"center",
+        justifyContent:"center"
+    },
+    emptyText:{
+        fontSize:14,
+        fontWeight:"600"
     }
 });
 

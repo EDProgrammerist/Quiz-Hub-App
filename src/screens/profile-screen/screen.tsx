@@ -12,12 +12,15 @@ const ProfileScreen = () => {
     name,
     username,
     avatarUrl,
+    ranking,
+    points,
     totalQuizzesTaken,
     averageScore,
     highestScore,
   } = useUserStore();
   const {colors} = useAppTheme();
   const [isEditProfileVisible, setIsEditProfileVisible] = useState(false);
+  const rankingLabel = ranking > 0 ? `${ranking}` : 'Unranked';
 
   return (
     <>
@@ -72,6 +75,30 @@ const ProfileScreen = () => {
         />
         <View style={[styles.divider, {backgroundColor: colors.border}]} />
         <List.Item
+          title="Ranking"
+          description={rankingLabel}
+          left={props => (
+            <List.Icon
+              {...props}
+              color={colors.primary}
+              icon="trophy-outline"
+            />
+          )}
+          titleStyle={[styles.listTitle, {color: colors.text}]}
+          descriptionStyle={[styles.listDescription, {color: colors.mutedText}]}
+        />
+        <View style={[styles.divider, {backgroundColor: colors.border}]} />
+        <List.Item
+          title="Points"
+          description={`${points}`}
+          left={props => (
+            <List.Icon {...props} color={colors.primary} icon="cash" />
+          )}
+          titleStyle={[styles.listTitle, {color: colors.text}]}
+          descriptionStyle={[styles.listDescription, {color: colors.mutedText}]}
+        />
+        <View style={[styles.divider, {backgroundColor: colors.border}]} />
+        <List.Item
           title="Total Quizzes Taken"
           description={`${totalQuizzesTaken}`}
           left={props => (
@@ -87,7 +114,7 @@ const ProfileScreen = () => {
         <View style={[styles.divider, {backgroundColor: colors.border}]} />
         <List.Item
           title="Average Score"
-          description={`${averageScore}%`}
+          description={`${averageScore}/10`}
           left={props => (
             <List.Icon {...props} color={colors.primary} icon="chart-line" />
           )}
@@ -97,7 +124,7 @@ const ProfileScreen = () => {
         <View style={[styles.divider, {backgroundColor: colors.border}]} />
         <List.Item
           title="Highest Score"
-          description={`${highestScore}%`}
+          description={`${highestScore}/10`}
           left={props => (
             <List.Icon {...props} color={colors.primary} icon="star-outline" />
           )}

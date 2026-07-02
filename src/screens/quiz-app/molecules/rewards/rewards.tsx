@@ -8,6 +8,7 @@ import {useAppTheme} from '../../../../theme/ThemeProvider'
 const Rewards:FC<any> = ({animatedHeaderStyle}) => {
   const {ranking, points} = useUserStore()
   const {colors} = useAppTheme()
+  const rankingLabel = ranking > 0 ? ranking : 'Unranked'
 
   return (
     <Animated.View style={[styles.container,animatedHeaderStyle]} >
@@ -20,7 +21,7 @@ const Rewards:FC<any> = ({animatedHeaderStyle}) => {
             <Image source={{uri:"https://cdn3d.iconscout.com/3d/premium/thumb/trophy-4034567-3337288@0.png?f=webp"}} style={styles.icon}/>
             <View style={styles.textBox}>
                 <Text style={[styles.title, {color: colors.mutedText}]}>Ranking</Text>
-                <Text style={[styles.point, {color: colors.primary}]}>{ranking}</Text>
+                <Text style={[styles.point, {color: colors.primary}]}>{rankingLabel}</Text>
             </View>
         </View>
         <View style={styles.subBox}>
